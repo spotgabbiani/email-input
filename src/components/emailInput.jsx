@@ -67,8 +67,11 @@ export class Autocomplete extends Component {
   };
 
   addRecipient = (address) => {
-    const selectedRecipients = this.state.selectedRecipients
-    selectedRecipients.push({ address, valid: validateEmail(address)})
+    const selectedRecipients = this.state.selectedRecipients;
+    const isInRecipients = selectedRecipients.find( recipient => recipient.address === address);
+    if (!isInRecipients){
+      selectedRecipients.push({ address, valid: validateEmail(address)});
+    }
     this.setState({
       activeOption: 0,
       filteredOptions: [],
